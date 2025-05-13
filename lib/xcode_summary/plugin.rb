@@ -275,7 +275,7 @@ module Danger
     def parse_location(document_location)
       return nil if document_location&.url.nil?
 
-      file_path = document_location.url.gsub('file://', '').split('#').first
+      file_path = CGI.unescape(document_location.url.gsub('file://', '').split('#').first)
       file_name = file_path.split('/').last
       fragment = document_location.url.split('#').last
       params = CGI.parse(fragment).transform_values(&:first)
